@@ -24,6 +24,7 @@ function getRecipesFromStorage() {
   // A9. TODO - Complete the functionality as described in this function
   //           header. It is possible in only a single line, but should
   //           be no more than a few lines.
+  return JSON.parse(localStorage.getItem('recipes'));
 }
 
 /**
@@ -35,10 +36,16 @@ function getRecipesFromStorage() {
  */
 function addRecipesToDocument(recipes) {
   // A10. TODO - Get a reference to the <main> element
+  let refMain = document.querySelector('main');
   // A11. TODO - Loop through each of the recipes in the passed in array,
   //            create a <recipe-card> element for each one, and populate
   //            each <recipe-card> with that recipe data using element.data = ...
   //            Append each element to <main>
+  for(let i = 0; i < recipes.length;i++){
+    let x = document.createElement('recipe-card');
+    x.data = recipes[i];
+    refMain.append(x);
+  }
 }
 
 /**
@@ -51,6 +58,7 @@ function saveRecipesToStorage(recipes) {
   // B1. TODO - Complete the functionality as described in this function
   //            header. It is possible in only a single line, but should
   //            be no more than a few lines.
+  localStorage.setItem('recipes',JSON.stringify(recipes));
 }
 
 /**
@@ -60,10 +68,21 @@ function saveRecipesToStorage(recipes) {
 function initFormHandler() {
 
   // B2. TODO - Get a reference to the <form> element
-  
+  let refForm = document.querySelector('form');
   // B3. TODO - Add an event listener for the 'submit' event, which fires when the
   //            submit button is clicked
+  let y = document.querySelector('button');
+  y.addEventListener('click',clickMe)
+  function clickMe(event){
+    event.preventDefault();
+    let form1 = new FormData(refForm);
+    let rep = {};
+    for(let x in form1){
+      rep[x] = form1[x];
+    }
 
+
+  }
   // Steps B4-B9 will occur inside the event listener from step B3
   // B4. TODO - Create a new FormData object from the <form> element reference above
   // B5. TODO - Create an empty object (I'll refer to this object as recipeObject to
