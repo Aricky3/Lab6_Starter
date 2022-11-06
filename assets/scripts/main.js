@@ -41,11 +41,17 @@ function addRecipesToDocument(recipes) {
   //            create a <recipe-card> element for each one, and populate
   //            each <recipe-card> with that recipe data using element.data = ...
   //            Append each element to <main>
-  for(let i = 0; i < recipes.length;i++){
+  if (recipes == null)
+  {
+    return;
+  }
+  
+  for(let i = 0; i < recipes.length; i++){
     let x = document.createElement('recipe-card');
     x.data = recipes[i];
     refMain.append(x);
   }
+
 }
 
 /**
@@ -66,37 +72,45 @@ function saveRecipesToStorage(recipes) {
  * <button>.
  */
 function initFormHandler() {
-
   // B2. TODO - Get a reference to the <form> element
+  
   let refForm = document.querySelector('form');
   // B3. TODO - Add an event listener for the 'submit' event, which fires when the
   //            submit button is clicked
-  let y = document.querySelector('button');
-  y.addEventListener('click',clickMe)
-  function clickMe(event){
+  // let buttonAdd = document.getElementsByName('button')[0];
+  refForm.addEventListener('submit', clickMe)
+  function clickMe(event)
+  {
     event.preventDefault();
     let form1 = new FormData(refForm);
     let rep = {};
-    for(let x in form1){
+
+    /**
+     for(let x in form1){
       rep[x] = form1[x];
+    }
+     */
+    for (const pair of form1.entries()) {
+      rep[pair[0]] = pair[1];
     }
 
     let repCard = document.createElement("recipe-card");
-    repCard.data = rep;
+    repCard = rep;
 
-    document.querySelector("main").appendChild(repCard);
+    document.querySelector("main").append(repCard);
     let repArray = getRecipesFromStorage();
-    repArray.push(repCard);
+    repArray.push(repCard); // repArray.push(repCard)?
+    console.log(repArray);
     saveRecipesToStorage(repArray);
-  };
-
+  }
+  
   // Clear Local Storage
-  let clearRef = document.getElementsByClassName("danger");
-  clearRef.addEventListener('click',buttonClick)
+  let clearRef = document.getElementsByClassName("danger")[0];
+  clearRef.addEventListener('click',buttonClick);
   function buttonClick(event){
     localStorage.clear();
     document.querySelector("main").innerHTML = "";
-  };
+  }
   // Steps B4-B9 will occur inside the event listener from step B3
   // B4. TODO - Create a new FormData object from the <form> element reference above
   // B5. TODO - Create an empty object (I'll refer to this object as recipeObject to
