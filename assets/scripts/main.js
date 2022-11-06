@@ -81,8 +81,22 @@ function initFormHandler() {
       rep[x] = form1[x];
     }
 
+    let repCard = document.createElement("recipe-card");
+    repCard.data = rep;
 
-  }
+    document.querySelector("main").appendChild(repCard);
+    let repArray = getRecipesFromStorage();
+    repArray.push(repCard);
+    saveRecipesToStorage(repArray);
+  };
+
+  // Clear Local Storage
+  let clearRef = document.getElementsByClassName("danger");
+  clearRef.addEventListener('click',buttonClick)
+  function buttonClick(event){
+    localStorage.clear();
+    document.querySelector("main").innerHTML = "";
+  };
   // Steps B4-B9 will occur inside the event listener from step B3
   // B4. TODO - Create a new FormData object from the <form> element reference above
   // B5. TODO - Create an empty object (I'll refer to this object as recipeObject to
