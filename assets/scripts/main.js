@@ -81,7 +81,7 @@ function initFormHandler() {
   refForm.addEventListener('submit', clickMe)
   function clickMe(event)
   {
-    event.preventDefault();
+    // event.preventDefault();
     let form1 = new FormData(refForm);
     let rep = {};
 
@@ -99,13 +99,12 @@ function initFormHandler() {
 
     document.querySelector("main").append(repCard);
     let repArray = getRecipesFromStorage();
-    repArray.push(repCard); // repArray.push(repCard)?
-    console.log(repArray);
+    repArray.push(repCard); 
     saveRecipesToStorage(repArray);
   }
   
   // Clear Local Storage
-  let clearRef = document.getElementsByClassName("danger")[0];
+  let clearRef = document.querySelector(".danger");
   clearRef.addEventListener('click',buttonClick);
   function buttonClick(event){
     localStorage.clear();
